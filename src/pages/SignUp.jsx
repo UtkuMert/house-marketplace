@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore"; 
 import {db} from '../firabase.config'
 import { ReactComponent as ArrowRightIcom } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
@@ -34,6 +35,11 @@ export const SignUp = () => {
         updateProfile(auth.currentUser,{
           displayName: name
         })
+        const formDataCopy = {...formData}  //dont want to change formData state
+        delete formDataCopy.password // dont want to send password
+        formDataCopy.timestamp = serverTimestamp();
+
+        await setDoc(doc(db, 'users',user.uid),formDataCopy)
         navigate('/')
     } catch (error) {
       console.log(error);
