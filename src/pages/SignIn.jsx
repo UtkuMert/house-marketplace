@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ReactComponent as ArrowRightIcom } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
 export const SignIn = () => {
@@ -16,8 +17,29 @@ export const SignIn = () => {
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
-      [e.target.id]: e.target.value
-    }))
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const auth = getAuth();
+
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log('AAAAAAAAAAA',userCredential);
+
+      if (userCredential.user) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -25,7 +47,7 @@ export const SignIn = () => {
         <header>
           <p className="pageHeader">Welcome Back!</p>
         </header>
-        <form>
+        <form onSubmit={onSubmit}>
           <input
             type="email"
             className="emailInput"
@@ -56,14 +78,14 @@ export const SignIn = () => {
           <div className="signInBar">
             <p className="signInText">Sign In</p>
             <button className="signInButton">
-              <ArrowRightIcom fill="#ffffff" width='34px' height='34px' />
+              <ArrowRightIcom fill="#ffffff" width="34px" height="34px" />
             </button>
           </div>
         </form>
 
         {/* Google OAuth */}
 
-        <Link to='/sign-up' className='registerLink'>
+        <Link to="/sign-up" className="registerLink">
           Sign Up Instead
         </Link>
       </div>
