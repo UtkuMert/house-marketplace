@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { ReactComponent as ArrowRightIcom } from "../assets/svg/keyboardArrowRightIcon.svg";
+import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
 export const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -79,7 +79,7 @@ export const SignIn = () => {
           <div className="signInBar">
             <p className="signInText">Sign In</p>
             <button className="signInButton">
-              <ArrowRightIcom fill="#ffffff" width="34px" height="34px" />
+              <ArrowRightIcon fill="#ffffff" width="34px" height="34px" />
             </button>
           </div>
         </form>
