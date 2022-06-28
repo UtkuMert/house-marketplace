@@ -37,7 +37,7 @@ export const Offers = () => {
 
         // Execute query
         const querySnap = await getDocs(q);
-            
+
         const listings = [];
 
         querySnap.forEach((doc) => {
@@ -48,22 +48,20 @@ export const Offers = () => {
         });
 
         setListings(listings);
-        setLoading(false)
+        setLoading(false);
       } catch (error) {
-        console.log(error)
-        toast.error('Could not fetch listings')
+        console.log(error);
+        toast.error("Could not fetch listings");
       }
     };
 
     fetchListings();
-  },[]);
+  }, []);
 
   return (
-    <div className='category'>
+    <div className="category">
       <header>
-        <p className='pageHeader'>
-          Offers
-        </p>
+        <p className="pageHeader">Offers</p>
       </header>
 
       {loading ? (
@@ -71,7 +69,7 @@ export const Offers = () => {
       ) : listings && listings.length > 0 ? (
         <>
           <main>
-            <ul className='categoryListings'>
+            <ul className="categoryListings">
               {listings.map((listing) => (
                 <ListingItem
                   listing={listing.data}
@@ -84,11 +82,10 @@ export const Offers = () => {
 
           <br />
           <br />
-   
         </>
       ) : (
         <p>There are no current offers</p>
       )}
     </div>
-  )
+  );
 };
