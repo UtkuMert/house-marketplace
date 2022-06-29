@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import {
   collection,
   getDocs,
@@ -12,7 +11,6 @@ import {
 import { db } from "../firabase.config";
 import { toast } from "react-toastify";
 import { Spinner } from "../components/Spinner";
-import { FirebaseError } from "firebase/app";
 import { ListingItem } from "../components/ListingItem";
 
 export const Offers = () => {
@@ -20,7 +18,6 @@ export const Offers = () => {
   const [loading, setLoading] = useState(true);
   const [lastFetchedListing, setLastFetchedListing] = useState(null);
 
-  const params = useParams();
 
   useEffect(() => {
     const fetchListings = async () => {
